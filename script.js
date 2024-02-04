@@ -1,10 +1,10 @@
 //https://striveschool-api.herokuapp.com/api/deezer/search?q=INSERISCI QUI UNA QUERI
 //https://api.deezer.com/album/ --> ID <-- /tracks con id album traccio le canzoni
 
-// fetch('https://striveschool-api.herokuapp.com/api/deezer/search?q=fedez')
-//     .then((Response)=>Response.json())
-//     .then((json)=>console.log(json.data[0]))
-//     .catch((err)=>console.log("Error detected: ",err));
+fetch('https://api.borsinopro.it/rest/standard-v1/getContractType/')
+    .then((Response)=>Response.json())
+    .then((json)=>console.log(json))
+    .catch((err)=>console.log("Error detected: ",err));
 
 /*   CARICAMENTO HOME   */
 fetch('https://striveschool-api.herokuapp.com/api/deezer/search?q=eminem')
@@ -31,31 +31,29 @@ fetch('https://striveschool-api.herokuapp.com/api/deezer/search?q=quenn')
 
 function loadBestFour(objectList,pinArtist){
     let imgPin=document.getElementById(pinArtist).children;
-    console.log(imgPin);
     for(let i=0;i<4;i++){
+        imgPin[i].classList.add('m-auto');
         let cover=document.createElement('img');
         cover.src=objectList.data[i].album.cover_big;
-        cover.classList.add('defaultList')
+        // cover.classList.add('defaultList')
         cover.alt='No cover';
-        imgPin[i].appendChild('cover');
-        
-        // settare l'attributo per attivare la modale correta 
-
-        //creare la modale con le track
+        imgPin[i].appendChild(cover);
+        let albumID=objectList.data[i].album.id;
+        cover.dataBsTarget=albumID;
         let modalTracks=document.createElement('div');
         modalTracks.classList.add('modal');
-        let albumID=objectList.data.album.id;
-        let link=`https://api.deezer.com/album/${albumID}/tracks`;
+        let link=`https://api.deezer.com/album/212377/tracks`;
         fetch(link)
             .then((Response)=>Response.json())
-            .then((json)=>createList(json,albumID)
+            .then((json)=>console.log(json)
             .catch((err)=>console.log('Error detected: ',err)));
     }
 }
 //funzione creazione lista track
 function createList(traks,album){
-    
+    console.log(traks); 
 }
+
 
 //funzione di ricera 
 function search(){
